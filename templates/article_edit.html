@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1 class="mb-4">Tahrirlash</h1>
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10 col-sm-12">
+                <div class="card shadow-lg border-light">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">Postni tahrirlash</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form.media }}
+                            {{ form|crispy }}
+                            <div class="text-end mt-3">
+                                <button class="btn btn-info" type="submit">Saqlash</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

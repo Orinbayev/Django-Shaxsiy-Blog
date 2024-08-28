@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="card mb-4 shadow-sm border-light">
+                    {% if object.photo %}
+                        <img class="card-img-top" src="{{ object.photo.url }}" alt="{{ object.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h1 class="card-title">{{ object.title }}</h1>
+                        <h6 class="card-subtitle mb-3 text-muted">Muallif: {{ object.author }} | {{ object.date|date:"d M Y" }}</h6>
+                        <p class="card-text">{{ object.body|safe }}</p>
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'article_edit' object.pk %}" class="btn btn-primary">Tahrirlash</a>
+                            <a href="{% url 'article_delete' object.pk %}" class="btn btn-danger">O'chirish</a>
+                            <a href="{% url 'article_list' %}" class="btn btn-secondary">Barcha postlar</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4 shadow-sm border-light">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">Izohlar</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if object.comments.count %}
+                            {% for comment in object.comments.all %}
+                                <div class="mb-3">
+                                    <blockquote class="blockquote">
+                                        <p class="mb-0">{{ comment.text }}</p>
+                                        <footer class="blockquote-footer mt-2">{{ comment.author }} <cite title="Source Title">{{ comment.date|date:"d M Y" }}</cite></footer>
+                                    </blockquote>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-muted">Izohlar mavjud emas.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
